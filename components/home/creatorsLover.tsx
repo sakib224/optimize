@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import { ChevronLeft, ChevronRight, Star } from 'lucide-react';
+import { motion } from 'framer-motion';
 
 interface Testimonial {
     id: number;
@@ -70,18 +71,15 @@ export default function CreatorsLover() {
         <main className="min-h-screen bg-[#0a0a0a] text-white py-16 px-4">
             {/* Header Section */}
             <div className="flex flex-col items-center mb-16">
-                {/* Star Icon with Gold Glow */}
                 <div className="w-20 h-20 rounded-full border-2 border-amber-700/60 flex items-center justify-center mb-8 bg-neutral-900 shadow-[0_0_30px_rgba(255,215,0,0.6)] animate-glow">
                     <Star className="w-6 h-6 text-yellow-500 fill-yellow-500" />
                 </div>
 
-                {/* Title */}
                 <h1 className="text-5xl font-bold text-center mb-4">
                     <span className="text-gradient-gold">CREATORS</span>{' '}
                     <span className="text-white">LOVE US</span>
                 </h1>
 
-                {/* Subtitle */}
                 <p className="text-center text-gray-300 text-[17px] max-w-2xl leading-relaxed">
                     Join Thousands Of Successful YouTube Creators Who&apos;ve Transformed Their Channels
                     <br />
@@ -103,23 +101,20 @@ export default function CreatorsLover() {
                     {/* Cards Grid */}
                     <div className="w-full bg-[#0a0a0a] grid grid-cols-3 gap-6 px-16">
                         {getVisibleTestimonials().map((testimonial, idx) => {
-                            // center card is index 1 for 3-column grid
                             const isCenter = idx === 1;
                             return (
-                                <div
+                                <motion.div
                                     key={testimonial.id}
+                                    initial={{ opacity: 0, y: 20 }}
+                                    animate={{ opacity: 1, y: 0 }}
+                                    transition={{ duration: 0.5, delay: idx * 0.1 }}
+                                    whileHover={{ scale: 1.08 }}
                                     className={`relative border border-yellow-600 rounded-lg p-8 bg-[#0a0a0a] backdrop-blur
                                         transform transition-all duration-500 ease-in-out overflow-hidden
-                                        ${isCenter ? 'scale-105 z-10' : 'scale-100 z-0'}
-                                        hover:scale-105 hover:border-yellow-400 hover:z-20 group`}
-                                    style={{
-                                        transition: 'all 0.5s cubic-bezier(0.4, 0, 0.2, 1)',
-                                    }}
+                                        ${isCenter ? 'scale-105 z-10' : 'scale-100 z-0'} group`}
                                 >
-                                    {/* Center Point Glow - শুধু মাঝখানে */}
                                     <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-0 h-0 rounded-full bg-gradient-to-r from-yellow-400 via-amber-500 to-yellow-400 opacity-0 group-hover:opacity-30 transition-all duration-700 blur-3xl pointer-events-none group-hover:w-48 group-hover:h-48"></div>
 
-                                    {/* Quote SVG in top-right corner */}
                                     <svg
                                         xmlns="http://www.w3.org/2000/svg"
                                         width="24"
@@ -136,7 +131,6 @@ export default function CreatorsLover() {
                                         <path d="M15 21c3 0 7-1 7-8V5c0-1.25-.757-2.017-2-2h-4c-1.25 0-2 .75-2 1.972V11c0 1.25.75 2 2 2h.75c0 2.25.25 4-2.75 4v3c0 1 0 1 1 1z"></path>
                                     </svg>
 
-                                    {/* Header with Avatar */}
                                     <div className="flex items-start gap-4 mb-6 relative z-10">
                                         <img
                                             src={testimonial.image}
@@ -151,7 +145,6 @@ export default function CreatorsLover() {
                                         </div>
                                     </div>
 
-                                    {/* Stars */}
                                     <div className="flex gap-1 mb-6 relative z-10">
                                         {[...Array(5)].map((_, i) => (
                                             <Star
@@ -161,16 +154,14 @@ export default function CreatorsLover() {
                                         ))}
                                     </div>
 
-                                    {/* Testimonial Text */}
                                     <p className="text-gray-300 text-sm leading-relaxed mb-8 min-h-20 relative z-10 group-hover:text-white transition-colors duration-300">
                                         {testimonial.text}
                                     </p>
 
-                                    {/* Stat Button */}
-                                    <button className="w-full border bg-yellow-600/20  border-yellow-600 rounded-lg py-3 px-4 text-yellow-400 font-semibold text-sm hover:bg-yellow-600/20 transition-all duration-300 relative z-10">
+                                    <button className="w-full border bg-yellow-600/20 border-yellow-600 rounded-lg py-3 px-4 text-yellow-400 font-semibold text-sm hover:bg-yellow-600/20 transition-all duration-300 relative z-10">
                                         {testimonial.stat}
                                     </button>
-                                </div>
+                                </motion.div>
                             );
                         })}
                     </div>
@@ -203,28 +194,22 @@ export default function CreatorsLover() {
             <div className="max-w-2xl mx-auto">
                 <div className="border border-yellow-600 rounded-xl p-8 bg-black/50 backdrop-blur hover:shadow-[var(--shadow-gold)] transition-all duration-500">
                     <div className="grid grid-cols-3 gap-8 divide-x divide-yellow-600">
-                        {/* Stat 1 */}
-                        <div className="text-center transform hover:scale-105 transition-transform duration-300">
+                        <motion.div className="text-center transform hover:scale-105 transition-transform duration-300" whileHover={{ scale: 1.08 }}>
                             <p className="text-4xl font-bold text-gradient-gold mb-2">100%</p>
                             <p className="text-gray-300 text-sm">YouTube SEO Compatibility</p>
-                        </div>
-
-                        {/* Stat 2 */}
-                        <div className="text-center px-8 transform hover:scale-105 transition-transform duration-300">
+                        </motion.div>
+                        <motion.div className="text-center px-8 transform hover:scale-105 transition-transform duration-300" whileHover={{ scale: 1.08 }}>
                             <p className="text-4xl font-bold text-gradient-gold mb-2">2.5K+</p>
                             <p className="text-gray-300 text-sm">Channels Optimized</p>
-                        </div>
-
-                        {/* Stat 3 */}
-                        <div className="text-center pl-8 transform hover:scale-105 transition-transform duration-300">
+                        </motion.div>
+                        <motion.div className="text-center pl-8 transform hover:scale-105 transition-transform duration-300" whileHover={{ scale: 1.08 }}>
                             <p className="text-4xl font-bold text-gradient-gold mb-2">95%</p>
                             <p className="text-gray-300 text-sm">Ranking Success</p>
-                        </div>
+                        </motion.div>
                     </div>
                 </div>
             </div>
 
-            {/* Add these styles in your global CSS or in a style tag */}
             <style jsx>{`
                 .text-gradient-gold {
                     background: linear-gradient(135deg, #FFD700 0%, #FFA500 50%, #FFD700 100%);
@@ -238,12 +223,8 @@ export default function CreatorsLover() {
                 }
                 
                 @keyframes glow {
-                    0%, 100% {
-                        box-shadow: 0 0 30px rgba(255, 215, 0, 0.6);
-                    }
-                    50% {
-                        box-shadow: 0 0 50px rgba(255, 215, 0, 0.8);
-                    }
+                    0%, 100% { box-shadow: 0 0 30px rgba(255, 215, 0, 0.6); }
+                    50% { box-shadow: 0 0 50px rgba(255, 215, 0, 0.8); }
                 }
                 
                 .animate-glow {

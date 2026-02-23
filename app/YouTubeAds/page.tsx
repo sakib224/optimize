@@ -1,7 +1,13 @@
+import AdvancedTargeting from "@/components/YouTubeAds/AdvancedTargeting";
+import BenefitsofYouTube from "@/components/YouTubeAds/BenefitsofYouTube";
+import PowerfulYouTube from "@/components/YouTubeAds/PowerfulYouTube";
+
 export default function YouTubeAdsPage() {
   return (
-    <div className="flex items-center justify-center min-h-[50vh]">
-      <h1 className="text-2xl">Hello world</h1>
+    <div>
+      <PowerfulYouTube />
+      <BenefitsofYouTube />
+      <AdvancedTargeting />
     </div>
   );
 }

@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import { Star } from 'lucide-react';
 import Image from 'next/image';
+import { motion, AnimatePresence } from 'framer-motion';
 
 export default function TestimonialPage() {
     const [currentSlide, setCurrentSlide] = useState(0);
@@ -20,88 +21,156 @@ export default function TestimonialPage() {
 
     const testimonial = testimonials[currentSlide];
 
+    const fadeUp = {
+        hidden: { opacity: 0, y: 40 },
+        show: { opacity: 1, y: 0, transition: { duration: 0.6 } },
+    };
+
+    const slideAnim = {
+        hidden: { opacity: 0, x: 60 },
+        show: { opacity: 1, x: 0, transition: { duration: 0.5 } },
+        exit: { opacity: 0, x: -60, transition: { duration: 0.4 } },
+    };
+
     return (
         <div className="min-h-screen bg-black text-white flex flex-col items-center justify-center px-4 py-20">
-            {/* Creators Say Section */}
             <div className="w-full max-w-6xl">
-                <h1 className="text-5xl md:text-6xl font-bold text-center text-yellow-400 mb-4">
+                
+                {/* Heading */}
+                <motion.h1
+                    variants={fadeUp}
+                    initial="hidden"
+                    animate="show"
+                    className="text-5xl md:text-6xl font-bold text-center text-yellow-400 mb-4"
+                >
                     Creators Say
-                </h1>
-                <p className="text-center text-gray-300 mb-16 text-lg">
+                </motion.h1>
+
+                <motion.p
+                    variants={fadeUp}
+                    initial="hidden"
+                    animate="show"
+                    transition={{ delay: 0.15 }}
+                    className="text-center text-gray-300 mb-16 text-lg"
+                >
                     Join Thousands Of Creators Who've Transformed Their Channels With{' '}
                     <span className="text-yellow-400">Optimizify</span>
-                </p>
+                </motion.p>
 
                 {/* Testimonial Card */}
-                <div className="border border-gray-600 rounded-3xl p-12 mb-12 bg-gray-900/50 backdrop-blur">
-                    {/* Stars */}
-                    <div className="flex justify-center gap-2 mb-8">
-                        {[...Array(5)].map((_, i) => (
-                            <Star
-                                key={i}
-                                size={28}
-                                className="fill-yellow-400 text-yellow-400"
-                            />
-                        ))}
-                    </div>
-
-                    {/* Quote */}
-                    <p className="text-center text-gray-200 italic text-lg leading-relaxed mb-10">
-                        "{testimonial.quote}"
-                    </p>
-
-                    {/* Creator Info */}
-                    <div className="flex flex-col items-center">
-                        <div className="w-16 h-16 rounded-full bg-gray-700 mb-4 flex items-center justify-center">
-                            <div className="w-14 h-14 rounded-full bg-blue-500 flex items-center justify-center text-white font-bold text-sm">
-                                BG
+                <motion.div
+                    variants={fadeUp}
+                    initial="hidden"
+                    animate="show"
+                    transition={{ delay: 0.25 }}
+                    whileHover={{ scale: 1.02 }}
+                    className="border border-gray-600 rounded-3xl p-7 mb-12 bg-[#2E2E2E] backdrop-blur"
+                >
+                    <AnimatePresence mode="wait">
+                        <motion.div
+                            key={currentSlide}
+                            variants={slideAnim}
+                            initial="hidden"
+                            animate="show"
+                            exit="exit"
+                        >
+                            {/* Stars */}
+                            <div className="flex justify-center gap-2 mb-8">
+                                {[...Array(5)].map((_, i) => (
+                                    <motion.div
+                                        key={i}
+                                        initial={{ opacity: 0, scale: 0.5 }}
+                                        animate={{ opacity: 1, scale: 1 }}
+                                        transition={{ delay: i * 0.1 }}
+                                    >
+                                        <Star
+                                            size={28}
+                                            className="fill-yellow-400 text-yellow-400"
+                                        />
+                                    </motion.div>
+                                ))}
                             </div>
-                        </div>
-                        <h3 className="text-xl font-bold text-white mb-1">
-                            {testimonial.name}
-                        </h3>
-                        <p className="text-gray-400 text-sm">
-                            {testimonial.role} • {testimonial.achievement}
-                        </p>
-                    </div>
+
+                            {/* Quote */}
+                            <motion.p
+                                initial={{ opacity: 0 }}
+                                animate={{ opacity: 1 }}
+                                transition={{ delay: 0.2 }}
+                                className="text-center text-gray-200 italic text-lg leading-relaxed mb-10"
+                            >
+                                "{testimonial.quote}"
+                            </motion.p>
+
+                            {/* Creator Info */}
+                            <motion.div
+                                initial={{ opacity: 0, y: 20 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                transition={{ delay: 0.3 }}
+                                className="flex justify-center items-center space-x-6"
+                            >
+                                <div className="w-16 h-16 rounded-full bg-gray-700 flex items-center justify-center">
+                                    <div className="w-14 h-14 rounded-full bg-blue-500 flex items-center justify-center text-white font-bold text-sm">
+                                        BG
+                                    </div>
+                                </div>
+
+                                <div>
+                                    <h3 className="text-xl text-center font-bold text-white mb-1">
+                                        {testimonial.name}
+                                    </h3>
+                                    <p className="text-gray-400 text-sm">
+                                        {testimonial.role} • {testimonial.achievement}
+                                    </p>
+                                </div>
+                            </motion.div>
+                        </motion.div>
+                    </AnimatePresence>
 
                     {/* Navigation Dots */}
                     <div className="flex justify-center gap-2 mt-8">
-                        <button
-                            onClick={() => setCurrentSlide(0)}
-                            className={`w-3 h-3 rounded-full transition-all ${currentSlide === 0 ? 'bg-gray-400 w-8' : 'bg-gray-600'
+                        {[0, 1, 2].map((index) => (
+                            <motion.button
+                                key={index}
+                                whileHover={{ scale: 1.3 }}
+                                whileTap={{ scale: 0.9 }}
+                                onClick={() => setCurrentSlide(index)}
+                                className={`h-3 rounded-full transition-all ${
+                                    currentSlide === index
+                                        ? 'bg-yellow-400 w-8'
+                                        : 'bg-gray-600 w-3'
                                 }`}
-                            aria-label="Slide 1"
-                        />
-                        <button
-                            onClick={() => setCurrentSlide(1)}
-                            className={`w-3 h-3 rounded-full transition-all ${currentSlide === 1 ? 'bg-yellow-400 w-8' : 'bg-gray-600'
-                                }`}
-                            aria-label="Slide 2"
-                        />
-                        <button
-                            onClick={() => setCurrentSlide(2)}
-                            className={`w-3 h-3 rounded-full transition-all ${currentSlide === 2 ? 'bg-yellow-400 w-8' : 'bg-gray-600'
-                                }`}
-                            aria-label="Slide 3"
-                        />
+                                aria-label={`Slide ${index + 1}`}
+                            />
+                        ))}
                     </div>
-                </div>
+                </motion.div>
 
                 {/* CTA Section */}
-                <div className="border border-gray-600 rounded-3xl p-12 bg-gray-900/50 backdrop-blur text-center">
-                    <h2 className="text-3xl font-bold text-white mb-4">
+                <motion.div
+                    variants={fadeUp}
+                    initial="hidden"
+                    animate="show"
+                    transition={{ delay: 0.5 }}
+                    className="border border-gray-600 rounded-2xl p-10 bg-gray-900/50 backdrop-blur text-center max-w-[600px] mx-auto"
+                >
+                    <h2 className="text-3xl font-bold text-white mb-3">
                         Need A Custom Solution?
                     </h2>
-                    <p className="text-gray-300 mb-8 text-lg">
+                    <p className="text-gray-300 mb-6 text-base">
                         Let's Discuss Your Specific Requirements And Create A Tailored Plan
                         <br />
                         For Your Unique Needs.
                     </p>
-                    <button className="bg-yellow-400 text-black font-bold px-8 py-3 rounded-lg hover:bg-yellow-300 transition-colors text-lg">
+
+                    <motion.button
+                        whileHover={{ scale: 1.05 }}
+                        whileTap={{ scale: 0.95 }}
+                        className="bg-yellow-400 text-black font-bold px-7 py-3 rounded-lg hover:bg-yellow-300 transition-colors text-base"
+                    >
                         Contact Sales
-                    </button>
-                </div>
+                    </motion.button>
+                </motion.div>
+
             </div>
         </div>
     );

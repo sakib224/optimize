@@ -1,6 +1,7 @@
 'use client'
 
 import { ArrowRight } from 'lucide-react'
+import { motion } from 'framer-motion'
 
 interface Feature {
   id: string
@@ -70,12 +71,15 @@ export default function FeaturesSection() {
 
         {/* Features Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
-          {features.map((feature) => (
-            <div
+          {features.map((feature, idx) => (
+            <motion.div
               key={feature.id}
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: idx * 0.1 }}
+              whileHover={{ scale: 1.07, y: -5 }}
               className="relative p-8 bg-[#0B0C0F] border border-[#2E7D32] rounded-xl 
-                         transition-all duration-500 ease-in-out transform 
-                         hover:scale-105 hover:-translate-y-3 hover:shadow-[0_0_30px_rgba(34,197,94,0.6)]"
+                         transition-all duration-500 ease-in-out"
             >
               {/* Icon Circle */}
               <div className="w-14 h-14 bg-[#ECBB26] rounded-full flex items-center justify-center mb-5">
@@ -91,16 +95,20 @@ export default function FeaturesSection() {
               <p className="text-base text-[#d1d5db] leading-relaxed font-semibold">
                 {feature.description}
               </p>
-            </div>
+            </motion.div>
           ))}
         </div>
 
         {/* Button */}
         <div className="flex justify-center">
-          <button className="bg-[#0a0a0a] navbar-cta hover:bg-[#0a0a0a] text-[#0a0a0a] font-bold px-16 py-4 rounded-lg flex items-center gap-3 text-lg transition-colors duration-300 ease-in-out min-w-[300px]">
+          <motion.button
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            className="bg-[#0a0a0a] navbar-cta hover:bg-[#0a0a0a] text-[#0a0a0a] font-bold px-16 py-4 rounded-lg flex items-center gap-3 text-lg transition-colors duration-300 ease-in-out min-w-[300px]"
+          >
             <span>Explore All Features</span>
             <ArrowRight size={20} />
-          </button>
+          </motion.button>
         </div>
       </div>
     </section>

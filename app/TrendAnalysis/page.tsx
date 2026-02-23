@@ -1,7 +1,13 @@
+import Competetive from "@/components/trendAnalysisSection/Competetive";
+import TrendAnalysisBenner from "@/components/trendAnalysisSection/TrendAnalysisBenner";
+import TrendDetection from "@/components/trendAnalysisSection/TrendDetection";
+
 export default function TrendAnalysisPage() {
   return (
-    <div className="flex items-center justify-center min-h-[50vh]">
-      <h1 className="text-2xl">Hello world</h1>
+    <div>
+      <TrendAnalysisBenner />
+      <TrendDetection />
+      <Competetive />
     </div>
   );
 }

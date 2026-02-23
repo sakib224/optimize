@@ -1,7 +1,14 @@
+import IntelligentKeyword from "@/components/KeywordRecommendation/IntelligentKeyword";
+import OptimizeContent from "@/components/KeywordRecommendation/OptimizeContent";
+import RealTimeInsigts from "@/components/KeywordRecommendation/RealTimeInsigts";
+
+
 export default function KeywordRecommendationPage() {
   return (
-    <div className="flex items-center justify-center min-h-[50vh]">
-      <h1 className="text-2xl">Hello world</h1>
+    <div>
+      <IntelligentKeyword />
+      <RealTimeInsigts />
+      <OptimizeContent />
     </div>
   );
 }

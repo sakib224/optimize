@@ -1,7 +1,14 @@
+import AdvancedMetrics from "@/components/KeywordReporting/AdvancedMetrics";
+import OptimizationEngine from "@/components/KeywordReporting/OptimizationEngine";
+import PerformanceTracking from "@/components/KeywordReporting/PerformanceTracking";
+
+
 export default function KeywordReportingPage() {
   return (
-    <div className="flex items-center justify-center min-h-[50vh]">
-      <h1 className="text-2xl">Hello world</h1>
+    <div>
+      <PerformanceTracking />
+      <OptimizationEngine />
+      <AdvancedMetrics />
     </div>
   );
 }

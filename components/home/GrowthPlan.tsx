@@ -2,9 +2,11 @@
 
 import { Info } from 'lucide-react'
 import { useState } from 'react'
+import { motion, AnimatePresence } from 'framer-motion'
 
 export default function GrowthPlan() {
     const [hoveredFeature, setHoveredFeature] = useState<string | null>(null)
+    const [billingType, setBillingType] = useState<'monthly' | 'annual'>('annual')
 
     const featureDescriptions: Record<string, string> = {
         'UNLIMITED KEYWORD RESEARCH': 'Research unlimited keywords to find the best opportunities for your videos',
@@ -16,21 +18,18 @@ export default function GrowthPlan() {
         '8 VIDEOS OPTIMIZED': 'Optimize up to 8 videos per month',
     }
 
-    const plans = [
+    const annualPlans = [
         {
             name: 'Bronze',
             subtitle: 'Perfect Plan For Your Needs',
             price: 995,
-            originalPrice: 1190,
             monthlyPrice: 82.92,
-            savings: 191,
-            savingsPercent: 16,
             features: [
-                { name: 'UNLIMITED KEYWORD RESEARCH', highlighted: false },
-                { name: 'SMARTRANK KEYWORD SELECTION', highlighted: false },
-                { name: 'AI-POWERED YOUTUBE METADATA OPTIMIZATION', highlighted: false },
-                { name: 'INTELLIGENT YOUTUBE SEO TAGGING', highlighted: false },
-                { name: '2 VIDEOS OPTIMIZED', highlighted: false },
+                { name: 'UNLIMITED KEYWORD RESEARCH' },
+                { name: 'SMARTRANK KEYWORD SELECTION' },
+                { name: 'AI-POWERED YOUTUBE METADATA OPTIMIZATION' },
+                { name: 'INTELLIGENT YOUTUBE SEO TAGGING' },
+                { name: '2 VIDEOS OPTIMIZED' },
             ],
             cta: 'Get Bronze',
             featured: false,
@@ -39,16 +38,13 @@ export default function GrowthPlan() {
             name: 'Silver',
             subtitle: 'Perfect Plan For Your Needs',
             price: 1907,
-            originalPrice: 2379,
             monthlyPrice: 158.95,
-            savings: 472,
-            savingsPercent: 20,
             features: [
-                { name: 'UNLIMITED KEYWORD RESEARCH', highlighted: false },
-                { name: 'SMARTRANK KEYWORD SELECTION', highlighted: false },
-                { name: 'AI-POWERED YOUTUBE METADATA OPTIMIZATION', highlighted: false },
-                { name: 'INTELLIGENT YOUTUBE SEO TAGGING', highlighted: false },
-                { name: '4 VIDEOS OPTIMIZED', highlighted: false },
+                { name: 'UNLIMITED KEYWORD RESEARCH' },
+                { name: 'SMARTRANK KEYWORD SELECTION' },
+                { name: 'AI-POWERED YOUTUBE METADATA OPTIMIZATION' },
+                { name: 'INTELLIGENT YOUTUBE SEO TAGGING' },
+                { name: '4 VIDEOS OPTIMIZED' },
             ],
             cta: 'Get Silver',
             featured: false,
@@ -57,158 +53,227 @@ export default function GrowthPlan() {
             name: 'Gold',
             subtitle: 'Perfect Plan For Your Needs',
             price: 3621,
-            originalPrice: 4753,
             monthlyPrice: 301.75,
-            savings: 1131,
-            savingsPercent: 24,
             features: [
-                { name: 'UNLIMITED KEYWORD RESEARCH', highlighted: false },
-                { name: 'SMARTRANK KEYWORD SELECTION', highlighted: false },
-                { name: 'AI-POWERED YOUTUBE METADATA OPTIMIZATION', highlighted: false },
-                { name: 'INTELLIGENT YOUTUBE SEO TAGGING', highlighted: true },
-                { name: '8 VIDEOS OPTIMIZED', highlighted: false },
+                { name: 'UNLIMITED KEYWORD RESEARCH' },
+                { name: 'SMARTRANK KEYWORD SELECTION' },
+                { name: 'AI-POWERED YOUTUBE METADATA OPTIMIZATION' },
+                { name: 'INTELLIGENT YOUTUBE SEO TAGGING' },
+                { name: '8 VIDEOS OPTIMIZED' },
             ],
             cta: 'Get Gold',
             featured: true,
         },
     ]
 
+    const monthlyPlans = [
+        {
+            name: 'Bronze',
+            subtitle: 'Perfect Plan For Your Needs',
+            price: 85,
+            monthlyPrice: 85,
+            features: [
+                { name: 'UNLIMITED KEYWORD RESEARCH' },
+                { name: 'SMARTRANK KEYWORD SELECTION' },
+                { name: 'AI-POWERED YOUTUBE METADATA OPTIMIZATION' },
+                { name: 'INTELLIGENT YOUTUBE SEO TAGGING' },
+                { name: '2 VIDEOS OPTIMIZED' },
+            ],
+            cta: 'Get Bronze',
+            featured: false,
+        },
+        {
+            name: 'Silver',
+            subtitle: 'Perfect Plan For Your Needs',
+            price: 159,
+            monthlyPrice: 159,
+            features: [
+                { name: 'UNLIMITED KEYWORD RESEARCH' },
+                { name: 'SMARTRANK KEYWORD SELECTION' },
+                { name: 'AI-POWERED YOUTUBE METADATA OPTIMIZATION' },
+                { name: 'INTELLIGENT YOUTUBE SEO TAGGING' },
+                { name: '4 VIDEOS OPTIMIZED' },
+            ],
+            cta: 'Get Silver',
+            featured: false,
+        },
+        {
+            name: 'Gold',
+            subtitle: 'Perfect Plan For Your Needs',
+            price: 302,
+            monthlyPrice: 302,
+            features: [
+                { name: 'UNLIMITED KEYWORD RESEARCH' },
+                { name: 'SMARTRANK KEYWORD SELECTION' },
+                { name: 'AI-POWERED YOUTUBE METADATA OPTIMIZATION' },
+                { name: 'INTELLIGENT YOUTUBE SEO TAGGING' },
+                { name: '8 VIDEOS OPTIMIZED' },
+            ],
+            cta: 'Get Gold',
+            featured: true,
+        },
+    ]
+
+    const plans = billingType === 'annual' ? annualPlans : monthlyPlans
+
+    const fadeUp = {
+        hidden: { opacity: 0, y: 40 },
+        show: { opacity: 1, y: 0, transition: { duration: 0.6 } },
+    }
+
     return (
-        <main className="min-h-screen bg-black pt-12 pb-20 px-4">
+        <main className="min-h-screen bg-[#0F0F0F] pt-12 pb-20 px-4 overflow-hidden">
+            
             {/* Header */}
-            <div className="max-w-6xl mx-auto mb-16">
-                <div className="text-center">
-                    {/* Badge */}
-                    <div className="inline-block mb-8">
-                        <div className="bg-yellow-400 text-black px-3 py-1 rounded-full text-xs font-bold flex items-center gap-1">
-                           <span className="text-black font-bold">&diams;</span>
-                            <span>Step/Launch Bundle</span>
-                        </div>
-                    </div>
-
-                    {/* Title */}
-                    <h1 className="text-5xl font-bold text-white mb-3">
-                        Choose Your
-                        <br />
-                        <span className="text-yellow-400">Growth Plan</span>
-                    </h1>
-
-                    {/* Subtitle */}
-                    <p className="text-gray-400 text-sm mb-8 max-w-2xl mx-auto leading-relaxed">
-                        Accelerate Your YouTube Success With Our AI Powered Optimization Tools And Expert Guidance
-                    </p>
-
-                    {/* Toggle */}
-                    <div className="inline-flex gap-1 border border-gray-700 rounded-lg p-1 mb-16 bg-transparent">
-                        <button className="px-6 py-2 rounded text-gray-400 text-sm font-medium transition-colors">
-                            Monthly
-                        </button>
-                        <button className="px-4 py-1 rounded bg-yellow-400 text-black text-xs font-bold transition-colors">
-                            Save 15%
-                        </button>
-                    </div>
+            <motion.div
+                variants={fadeUp}
+                initial="hidden"
+                animate="show"
+                className="max-w-6xl mx-auto mb-16 text-center"
+            >
+                <div className="inline-block mb-8">
+                    <motion.div
+                        whileHover={{ scale: 1.1 }}
+                        className="bg-yellow-400 text-black px-3 py-1 rounded-full text-xs font-bold flex items-center gap-1"
+                    >
+                        <span>&diams;</span>
+                        <span>Step/Launch Bundle</span>
+                    </motion.div>
                 </div>
-            </div>
 
-            {/* Pricing Cards */}
-            <div className="max-w-6xl mx-auto">
-                <div className="grid md:grid-cols-3 gap-8">
-                    {plans.map((plan) => (
-                        <div
-                            key={plan.name}
-                            className={`rounded-xl border p-6 transition-all duration-300 ${plan.featured
-                                ? 'border-yellow-400 bg-black'
-                                : 'border-gray-700 bg-black'
-                                }`}
+                <h1 className="text-5xl font-bold text-white mb-3">
+                    Choose Your
+                    <br />
+                    <span className="text-yellow-400">Growth Plan</span>
+                </h1>
+
+                <p className="text-gray-400 text-sm mb-8 max-w-2xl mx-auto">
+                    Accelerate Your YouTube Success With Our AI Powered Optimization Tools And Expert Guidance
+                </p>
+
+                {/* Toggle */}
+                <div className="inline-flex gap-3 border-2 border-yellow-400/50 rounded-2xl p-2 mb-16 max-w-lg w-full">
+                    {['monthly', 'annual'].map((type) => (
+                        <motion.button
+                            key={type}
+                            whileTap={{ scale: 0.95 }}
+                            whileHover={{ scale: 1.03 }}
+                            onClick={() => setBillingType(type as 'monthly' | 'annual')}
+                            className={`flex-1 px-8 py-4 rounded-xl font-bold transition-all ${
+                                billingType === type
+                                    ? 'bg-yellow-400 text-black'
+                                    : 'text-gray-400 hover:text-white'
+                            }`}
                         >
-                            {/* Icon */}
-                            <div className="w-10 h-10 rounded-lg bg-yellow-400 flex items-center justify-center mb-4">
-                                <span className="text-black font-bold text-lg">▶</span>
-                            </div>
-
-                            {/* Plan Name */}
-                            <h3 className="text-white font-bold text-lg mb-1">{plan.name}</h3>
-                            <p className="text-gray-400 text-xs mb-4">{plan.subtitle}</p>
-
-                            {/* Price Section */}
-                            <div className="mb-6">
-                                <div className="flex items-baseline gap-2 mb-2">
-                                    <span className="text-yellow-400 text-3xl font-bold">${plan.price}</span>
-                                    <span className="text-gray-500 text-sm">/Year</span>
-                                </div>
-                                <p className="text-gray-500 text-xs mb-2">
-                                    ${plan.monthlyPrice}/month billed annually
-                                </p>
-                                <div className="flex items-center gap-2">
-                                    <span className="text-gray-500 text-xs line-through">${plan.originalPrice}</span>
-                                    <span className="bg-green-500 text-white text-xs font-bold px-2 py-1 rounded-full">
-                                        Save {plan.savingsPercent}% (${plan.savings})
-                                    </span>
-                                </div>
-                            </div>
-
-                            {/* Features List */}
-                            <div className="space-y-3 mb-6">
-                                {plan.features.map((feature, idx) => {
-                                    const featureKey = `${plan.name}-${idx}`
-                                    const isHovered = hoveredFeature === featureKey
-
-                                    return (
-                                        <div
-                                            key={idx}
-                                            className="relative group"
-                                            onMouseEnter={() => setHoveredFeature(featureKey)}
-                                            onMouseLeave={() => setHoveredFeature(null)}
-                                        >
-                                            <div
-                                                className={`border rounded-lg p-3 flex items-center gap-3 transition-all cursor-pointer ${isHovered
-                                                    ? 'border-yellow-400 bg-yellow-400 bg-opacity-30'
-                                                    : feature.highlighted
-                                                        ? 'border-yellow-400 bg-yellow-400 bg-opacity-20'
-                                                        : 'border-yellow-400 border-opacity-50 hover:border-opacity-100'
-                                                    }`}
-                                            >
-                                                <span className={`text-lg flex-shrink-0 transition-colors ${isHovered ? 'text-yellow-300' : 'text-yellow-400'
-                                                    }`}>▶</span>
-                                                <span className={`text-xs font-bold flex-1 transition-colors ${isHovered
-                                                    ? 'text-yellow-300'
-                                                    : feature.highlighted
-                                                        ? 'text-yellow-400'
-                                                        : 'text-white'
-                                                    }`}>
-                                                    {feature.name}
-                                                </span>
-                                                <Info className={`w-4 h-4 flex-shrink-0 cursor-pointer transition-colors ${isHovered ? 'text-yellow-300' : 'text-gray-500'
-                                                    } hover:text-yellow-400`} />
-                                            </div>
-
-                                            {/* Tooltip */}
-                                            {isHovered && (
-                                                <div className="absolute bottom-full left-0 right-0 mb-2 z-10 opacity-100 transition-opacity">
-                                                    <div className="bg-yellow-400 text-black text-xs font-medium p-3 rounded-lg shadow-lg whitespace-normal">
-                                                        {featureDescriptions[feature.name] || feature.name}
-                                                    </div>
-                                                    <div className="absolute bottom-0 left-4 transform translate-y-full">
-                                                        <div className="border-4 border-transparent border-t-yellow-400"></div>
-                                                    </div>
-                                                </div>
-                                            )}
-                                        </div>
-                                    )
-                                })}
-                            </div>
-
-                            {/* CTA Button */}
-                            <button
-                                className={`w-full py-3 rounded font-bold transition-all duration-300 text-sm ${plan.featured
-                                    ? 'bg-yellow-400 text-black hover:bg-yellow-300'
-                                    : 'bg-yellow-500 text-black hover:bg-yellow-400'
-                                    }`}
-                            >
-                                {plan.cta}
-                            </button>
-                        </div>
+                            {type === 'annual' ? 'Annual (Save 15%)' : 'Monthly'}
+                        </motion.button>
                     ))}
+                </div>
+            </motion.div>
+
+            {/* Cards */}
+            <div className="max-w-7xl bg-[#111111] mx-auto px-4 py-12">
+                <div className="grid md:grid-cols-3 gap-8">
+                    <AnimatePresence mode="wait">
+                        {plans.map((plan, index) => (
+                            <motion.div
+                                key={`${plan.name}-${billingType}`}
+                                variants={fadeUp}
+                                initial="hidden"
+                                animate="show"
+                                exit={{ opacity: 0, y: 20 }}
+                                transition={{ delay: index * 0.1 }}
+                                whileHover={{ scale: 1.03 }}
+                                className={`rounded-xl border p-8 transition-all duration-500 ${
+                                    plan.featured
+                                        ? 'border-yellow-400 bg-[#0F0F0F]'
+                                        : 'border-gray-700 bg-[#0F0F0F]'
+                                }`}
+                            >
+                                {/* Icon */}
+                                <motion.div
+                                    whileHover={{ rotate: 10, scale: 1.15 }}
+                                    className="w-14 h-14 rounded-lg bg-yellow-400 flex items-center justify-center mb-6"
+                                >
+                                    ▶
+                                </motion.div>
+
+                                <h3 className="text-white font-bold text-2xl mb-2">
+                                    {plan.name}
+                                </h3>
+
+                                <p className="text-gray-400 text-base mb-6">
+                                    {plan.subtitle}
+                                </p>
+
+                                <div className="mb-8">
+                                    <div className="flex items-baseline gap-2 mb-2">
+                                        <span className="text-yellow-400 text-5xl font-black">
+                                            ${plan.price}
+                                        </span>
+                                        <span className="text-gray-500 text-base">
+                                            {billingType === 'annual' ? '/Year' : '/Month'}
+                                        </span>
+                                    </div>
+
+                                    {billingType === 'annual' && (
+                                        <p className="text-gray-500 text-base">
+                                            ${plan.monthlyPrice}/month billed annually
+                                        </p>
+                                    )}
+                                </div>
+
+                                {/* Features */}
+                                <div className="space-y-4 mt-5 mb-8">
+                                    {plan.features.map((feature, idx) => {
+                                        const featureKey = `${plan.name}-${idx}`
+                                        const isHovered = hoveredFeature === featureKey
+
+                                        return (
+                                            <motion.div
+                                                key={idx}
+                                                whileHover={{ scale: 1.02 }}
+                                                onMouseEnter={() => setHoveredFeature(featureKey)}
+                                                onMouseLeave={() => setHoveredFeature(null)}
+                                                className="relative"
+                                            >
+                                                <div className="border border-yellow-400/50 rounded-xl p-4 flex items-center gap-3">
+                                                    <span className="text-yellow-400">▶</span>
+                                                    <span className="text-base font-bold flex-1">
+                                                        {feature.name}
+                                                    </span>
+                                                    <Info className="w-5 h-5 text-gray-500" />
+                                                </div>
+
+                                                <AnimatePresence>
+                                                    {isHovered && (
+                                                        <motion.div
+                                                            initial={{ opacity: 0, x: 10 }}
+                                                            animate={{ opacity: 1, x: 0 }}
+                                                            exit={{ opacity: 0, x: 10 }}
+                                                            className="absolute left-full top-0 ml-2 z-10"
+                                                        >
+                                                            <div className="bg-yellow-400 text-black text-sm font-bold p-3 rounded-xl shadow-2xl w-[250px]">
+                                                                {featureDescriptions[feature.name] || feature.name}
+                                                            </div>
+                                                        </motion.div>
+                                                    )}
+                                                </AnimatePresence>
+                                            </motion.div>
+                                        )
+                                    })}
+                                </div>
+
+                                <motion.button
+                                    whileHover={{ scale: 1.05 }}
+                                    whileTap={{ scale: 0.95 }}
+                                    className="w-[150px] py-3 rounded-xl font-black text-lg bg-yellow-400 text-black"
+                                >
+                                    {plan.cta} →
+                                </motion.button>
+                            </motion.div>
+                        ))}
+                    </AnimatePresence>
                 </div>
             </div>
         </main>

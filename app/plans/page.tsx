@@ -1,7 +1,19 @@
+import CreatorsLover from "@/components/home/creatorsLover";
+import FeaturesSection from "@/components/home/features-section";
+import GrowthPlan from "@/components/home/GrowthPlan";
+import { HeroSection } from "@/components/home/hero-section";
+import TestimonialPage from "@/components/home/TestimonialPage";
+import WhatsIncluded from "@/components/home/WhatsIncluded";
+
 export default function PlansPage() {
   return (
-    <div className="flex items-center justify-center min-h-[50vh]">
-      <h1 className="text-2xl">Hello world</h1>
+    <div >
+      <HeroSection />
+            <FeaturesSection  />
+            <CreatorsLover />
+            <GrowthPlan />
+            <TestimonialPage />
+            <WhatsIncluded />
     </div>
   );
 }

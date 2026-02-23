@@ -55,7 +55,6 @@ export default function HomePage() {
       <GrowthPlan />
       <TestimonialPage />
       <WhatsIncluded />
-      <PlansCtaSection />
     </>
   );
 }
