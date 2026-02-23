@@ -43,23 +43,19 @@ export function HeroSection({
       <div className="absolute inset-0 bg-[var(--bg-gradient)]" />
       <div className="absolute inset-0 bg-[url('/images/home/hero-background.jpg')] bg-cover bg-center opacity-40" />
       <div className="absolute inset-0 bg-black/50" />
-      {/* Subtle animated gradient orbs */}
-      <div className="absolute top-1/4 left-1/4 w-64 h-64 rounded-full opacity-10 animate-pulse-soft blur-3xl bg-[var(--primary)]" />
-      <div className="absolute bottom-1/3 right-1/4 w-80 h-80 rounded-full opacity-10 animate-pulse-soft blur-3xl bg-[var(--primary-dark)] animate-delay-1000" />
-
 
       <div className="relative z-10 text-center px-6 max-w-6xl mx-auto py-24">
         <div className="mb-8 flex justify-center animate-fade-in-down">
-          <span className="flex h-20 w-20 items-center justify-center rounded-full [background:var(--gold-gradient)] shadow-[var(--shadow-gold)] animate-glow">
-            <Image
-              src="/images/optimizify-play-gold-icon.png"
-              alt=""
-              width={48}
-              height={48}
-              className="object-contain p-2"
-            />
-          </span>
-        </div>
+  <span className="flex h-20 w-20 items-center justify-center rounded-full [background:var(--gold-gradient)] shadow-[0_0_30px_rgba(255,215,0,0.5)] transition-all duration-300 hover:shadow-[0_0_60px_rgba(255,215,0,1)] hover:scale-110">
+    <Image
+      src="/images/optimizify-play-gold-icon.png"
+      alt=""
+      width={48}
+      height={48}
+      className="object-contain p-2 transition-transform duration-300 hover:scale-110"
+    />
+  </span>
+</div>
         <h1 className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold mb-6 leading-tight animate-fade-in-up animate-delay-100">
           <span className="text-gradient-gold">{headline.split(" ")[0]}</span>
           <br />
