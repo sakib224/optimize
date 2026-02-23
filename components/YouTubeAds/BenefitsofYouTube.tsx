@@ -98,7 +98,7 @@ export default function BenefitsofYouTube() {
                             <div className="absolute inset-0 bg-yellow-400/30 opacity-0 transition-all duration-500 group-hover:opacity-50 rounded-xl"></div>
 
                             {/* card */}
-                            <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 w-11/12 bg-neutral-900/90 backdrop-blur-sm rounded-t-lg py-2 px-3 border-t border-yellow-600/50">
+                            <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 w-11/12 bg-neutral-900/90 backdrop-blur-sm rounded-lg py-2 px-3 ">
                                 <div className="text-yellow-400 font-bold text-sm text-start">VIDEO ADVERTISING</div>
                                 <div className="text-gray-300 text-xs mt-1 text-start">Reach 2B+ monthly users</div>
                             </div>

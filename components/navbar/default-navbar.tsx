@@ -53,6 +53,7 @@ export function DefaultNavbar({
   const [mobileView, setMobileView] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const navRef = useRef<HTMLDivElement>(null);
+const dropdownTimeoutRef = useRef<NodeJS.Timeout | null>(null);
 
   useEffect(() => {
     const handleScroll = () => setIsScrolled(window.pageYOffset > 20);
@@ -73,6 +74,40 @@ export function DefaultNavbar({
       window.removeEventListener("scroll", handleScroll);
     };
   }, []);
+
+  const handleMouseEnter = (e: React.MouseEvent, r: NavbarRoute) => {
+    if (dropdownTimeoutRef.current) {
+      clearTimeout(dropdownTimeoutRef.current);
+    }
+    if (r.collapse) {
+      const el = e.currentTarget as HTMLElement;
+      setDropdown(el);
+      setDropdownEl(el);
+      setDropdownName(r.name);
+      const rect = el.getBoundingClientRect();
+      setDropdownRect({ top: rect.bottom + 8, left: rect.left });
+    }
+  };
+
+  const handleMouseLeave = () => {
+    dropdownTimeoutRef.current = setTimeout(() => {
+      setDropdown(null);
+      setDropdownName("");
+      setDropdownRect(null);
+    }, 300);
+  };
+
+  const handleDropdownMouseEnter = () => {
+    if (dropdownTimeoutRef.current) {
+      clearTimeout(dropdownTimeoutRef.current);
+    }
+  };
+
+  const handleDropdownMouseLeave = () => {
+    setDropdown(null);
+    setDropdownName("");
+    setDropdownRect(null);
+  };
 
   const itemColor =
     isScrolled || !transparent ? "#FFFFFF" : "#D1D5DB";
@@ -95,6 +130,7 @@ export function DefaultNavbar({
           position: relative ? "relative" : "absolute",
           left: relative ? "auto" : 0,
           zIndex: 1000,
+          transition: "all 0.5s cubic-bezier(0.4, 0, 0.2, 1)",
         }}
       >
 <div
@@ -107,7 +143,7 @@ export function DefaultNavbar({
         >
           <span
             aria-hidden
-            className="absolute top-0 left-0 right-0 h-px transition-opacity duration-300 pointer-events-none"
+            className="absolute top-0 left-0 right-0 h-px transition-opacity duration-700 pointer-events-none"
             style={{
               background: "linear-gradient(90deg, transparent, #FFC727, transparent)",
               opacity: isScrolled ? 1 : 0,
@@ -122,7 +158,7 @@ export function DefaultNavbar({
             }}
           >
             <span
-              className="brand-glow absolute -inset-1 rounded-xl opacity-0 transition-all duration-300 -z-10 blur-md"
+              className="brand-glow absolute -inset-1 rounded-xl opacity-0 transition-all duration-700 -z-10 blur-md"
               style={{
                 background: "linear-gradient(45deg, #FFC727, #FFB800, #FFC727)",
               }}
@@ -164,6 +200,8 @@ export function DefaultNavbar({
                   key={r.name}
                   className="modern-nav-item nav-item-enhanced relative"
                   style={{ position: "relative", margin: "0 8px" }}
+                  onMouseEnter={(e) => handleMouseEnter(e, r)}
+                  onMouseLeave={handleMouseLeave}
                 >
                   {r.route && !r.collapse ? (
                     <Link
@@ -174,7 +212,7 @@ export function DefaultNavbar({
                         fontWeight: 600,
                         fontSize: "0.95rem",
                         padding: "8px 16px",
-                        transition: "all 0.3s cubic-bezier(0.4, 0, 0.2, 1)",
+                        transition: "all 0.5s cubic-bezier(0.4, 0, 0.2, 1)",
                       }}
                     >
                       {icon && <span className="mr-2 inline-flex align-middle [&>svg]:size-[1.1rem]">{icon}</span>}
@@ -188,25 +226,14 @@ export function DefaultNavbar({
                         fontWeight: 600,
                         fontSize: "0.95rem",
                         padding: "8px 16px",
-                        transition: "all 0.3s cubic-bezier(0.4, 0, 0.2, 1)",
+                        transition: "all 0.5s cubic-bezier(0.4, 0, 0.2, 1)",
                       }}
-                      onMouseEnter={(e) => {
-                        if (r.collapse) {
-                          const el = e.currentTarget;
-                          setDropdown(el);
-                          setDropdownEl(el);
-                          setDropdownName(r.name);
-                          const rect = el.getBoundingClientRect();
-                          setDropdownRect({ top: rect.bottom + 8, left: rect.left });
-                        }
-                      }}
-                      onMouseLeave={() => r.collapse && setDropdown(null)}
                     >
                       {icon && <span className="mr-2 inline-flex align-middle [&>svg]:size-[1.1rem]">{icon}</span>}
                       <span className="mr-0.5 whitespace-nowrap">{r.name}</span>
                       {r.collapse && (
                         <span
-                          className="inline-flex transition-transform duration-300"
+                          className="inline-flex transition-transform duration-500"
                           style={{ transform: dropdownName === r.name ? "rotate(180deg)" : "rotate(0deg)" }}
                         >
                           <KeyboardArrowDown />
@@ -230,7 +257,7 @@ export function DefaultNavbar({
           {/* Mobile menu button */}
           <button
             type="button"
-            className="mobile-menu-btn-enhanced lg:hidden w-12 h-12 flex items-center justify-center rounded-xl border border-[rgba(255,199,39,0.3)] text-white transition-all"
+            className="mobile-menu-btn-enhanced lg:hidden w-12 h-12 flex items-center justify-center rounded-xl border border-[rgba(255,199,39,0.3)] text-white transition-all duration-500"
             style={{
               background: mobileNavbar
                 ? "linear-gradient(135deg, #FFC727, #FFB800)"
@@ -241,7 +268,7 @@ export function DefaultNavbar({
             aria-label={mobileNavbar ? "Close menu" : "Open menu"}
           >
             <span
-              className="inline-flex transition-transform duration-300"
+              className="inline-flex transition-transform duration-500"
               style={{ transform: mobileNavbar ? "rotate(90deg)" : "rotate(0deg)" }}
             >
               {mobileNavbar ? (
@@ -260,7 +287,7 @@ export function DefaultNavbar({
         {/* Mobile menu */}
         {mobileView && (
           <div
-            className="lg:hidden mt-2 overflow-hidden transition-all duration-300"
+            className="lg:hidden mt-2 overflow-hidden transition-all duration-500"
             style={{
               display: mobileNavbar ? "block" : "none",
               background: "linear-gradient(195deg, #0A0A0A, #121212)",
@@ -280,7 +307,7 @@ export function DefaultNavbar({
       {/* Dropdown panel (desktop) */}
       {dropdown && dropdownEl && dropdownRect && (
         <div
-          className="dropdown-enhanced fixed z-[1100] min-w-[280px] p-2 rounded-2xl overflow-hidden"
+          className="dropdown-enhanced fixed z-[1100] min-w-[280px] p-2 rounded-2xl overflow-hidden transition-all duration-500"
           style={{
             top: dropdownRect.top,
             left: dropdownRect.left,
@@ -288,19 +315,10 @@ export function DefaultNavbar({
             backdropFilter: "blur(20px) saturate(180%)",
             border: "1px solid rgba(255, 199, 39, 0.2)",
             boxShadow: "0 20px 60px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(255, 199, 39, 0.1)",
+            animation: "fadeIn 0.5s ease-in-out",
           }}
-          onMouseEnter={() => {
-            setDropdown(dropdownEl);
-            if (dropdownEl) {
-              const rect = dropdownEl.getBoundingClientRect();
-              setDropdownRect({ top: rect.bottom + 8, left: rect.left });
-            }
-          }}
-          onMouseLeave={() => {
-            setDropdown(null);
-            setDropdownName("");
-            setDropdownRect(null);
-          }}
+          onMouseEnter={handleDropdownMouseEnter}
+          onMouseLeave={handleDropdownMouseLeave}
         >
           <span
             aria-hidden
@@ -319,7 +337,7 @@ export function DefaultNavbar({
                     <Link
                       key={item.name}
                       href={item.route || item.href || "#"}
-                      className="block py-2.5 px-4 rounded-lg font-bold capitalize text-white/90 transition-all hover:bg-white/10 hover:text-[#FFC727]"
+                      className="block py-2.5 px-4 rounded-lg font-bold capitalize text-white/90 transition-all duration-500 hover:bg-white/10 hover:text-[#FFC727]"
                     >
                       {item.name}
                     </Link>
@@ -329,6 +347,19 @@ export function DefaultNavbar({
           )}
         </div>
       )}
+
+      <style jsx>{`
+        @keyframes fadeIn {
+          from {
+            opacity: 0;
+            transform: translateY(-10px);
+          }
+          to {
+            opacity: 1;
+            transform: translateY(0);
+          }
+        }
+      `}</style>
     </div>
   );
 }
@@ -362,14 +393,14 @@ function DefaultNavbarMobileContent({
             <>
               <button
                 type="button"
-                className="w-full text-left py-2 px-4 rounded-lg font-bold capitalize flex items-center justify-between text-white"
+                className="w-full text-left py-2 px-4 rounded-lg font-bold capitalize flex items-center justify-between text-white transition-all duration-500"
                 onClick={() =>
                   setCollapse(collapse === r.name ? "" : r.name)
                 }
               >
                 {r.name}
                 <span
-                  className="inline-flex transition-transform"
+                  className="inline-flex transition-transform duration-500"
                   style={{
                     transform: collapse === r.name ? "rotate(180deg)" : "rotate(0deg)",
                   }}
@@ -379,7 +410,7 @@ function DefaultNavbarMobileContent({
               </button>
               {collapse === r.name && (
                 <div
-                  className="max-h-[15rem] overflow-y-auto pl-4 pr-2"
+                  className="max-h-[15rem] overflow-y-auto pl-4 pr-2 transition-all duration-500"
                   style={{
                     scrollbarWidth: "thin",
                   }}
@@ -389,7 +420,7 @@ function DefaultNavbarMobileContent({
                       <Link
                         key={item.name}
                         href={item.route || item.href || "#"}
-                        className="block py-2.5 px-4 rounded-lg text-[#D1D5DB] text-[0.9rem] transition-all hover:bg-[rgba(255,199,39,0.1)] hover:text-[#FFC727] hover:translate-x-2"
+                        className="block py-2.5 px-4 rounded-lg text-[#D1D5DB] text-[0.9rem] transition-all duration-500 hover:bg-[rgba(255,199,39,0.1)] hover:text-[#FFC727] hover:translate-x-2"
                       >
                         {item.name}
                       </Link>
@@ -401,7 +432,7 @@ function DefaultNavbarMobileContent({
           ) : (
             <Link
               href={r.route || r.href || "#"}
-              className="block py-3 px-3.5 rounded-lg mb-1 border border-white/5 bg-white/[0.02] transition-all hover:bg-[rgba(255,199,39,0.1)] hover:border-[rgba(255,199,39,0.3)] hover:-translate-y-0.5 hover:shadow-[0_8px_20px_rgba(255,199,39,0.15)]"
+              className="block py-3 px-3.5 rounded-lg mb-1 border border-white/5 bg-white/[0.02] transition-all duration-500 hover:bg-[rgba(255,199,39,0.1)] hover:border-[rgba(255,199,39,0.3)] hover:-translate-y-0.5 hover:shadow-[0_8px_20px_rgba(255,199,39,0.15)]"
             >
               <span className="block font-bold capitalize text-white text-base">
                 {r.name}
