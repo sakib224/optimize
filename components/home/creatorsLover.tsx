@@ -109,7 +109,7 @@ export default function CreatorsLover() {
                                     animate={{ opacity: 1, y: 0 }}
                                     transition={{ duration: 0.5, delay: idx * 0.1 }}
                                     whileHover={{ scale: 1.08 }}
-                                    className={`relative border border-yellow-600 rounded-lg p-8 bg-[#0a0a0a] backdrop-blur
+                                    className={`relative border border-yellow-600 rounded-lg p-8 bg-[#141414] backdrop-blur
                                         transform transition-all duration-500 ease-in-out overflow-hidden
                                         ${isCenter ? 'scale-105 z-10' : 'scale-100 z-0'} group`}
                                 >
@@ -183,8 +183,8 @@ export default function CreatorsLover() {
                         key={idx}
                         onClick={() => setCurrentIndex(idx)}
                         className={`w-2 h-2 rounded-full transition-all duration-300 ${idx === currentIndex
-                                ? 'bg-gradient-gold w-6 shadow-[var(--shadow-gold)]'
-                                : 'bg-gray-500 hover:bg-yellow-400/50'
+                            ? 'bg-gradient-gold w-6 shadow-[var(--shadow-gold)]'
+                            : 'bg-gray-500 hover:bg-yellow-400/50'
                             }`}
                     />
                 ))}
@@ -192,20 +192,24 @@ export default function CreatorsLover() {
 
             {/* Stats Section */}
             <div className="max-w-2xl mx-auto">
-                <div className="border border-yellow-600 rounded-xl p-8 bg-black/50 backdrop-blur hover:shadow-[var(--shadow-gold)] transition-all duration-500">
+                <div className="border border-yellow-600 rounded-xl p-8 bg-[#141414] backdrop-blur transition-all duration-500">
                     <div className="grid grid-cols-3 gap-8 divide-x divide-yellow-600">
-                        <motion.div className="text-center transform hover:scale-105 transition-transform duration-300" whileHover={{ scale: 1.08 }}>
+
+                        <motion.div className="text-center">
                             <p className="text-4xl font-bold text-gradient-gold mb-2">100%</p>
                             <p className="text-gray-300 text-sm">YouTube SEO Compatibility</p>
                         </motion.div>
-                        <motion.div className="text-center px-8 transform hover:scale-105 transition-transform duration-300" whileHover={{ scale: 1.08 }}>
+
+                        <motion.div className="text-center px-8">
                             <p className="text-4xl font-bold text-gradient-gold mb-2">2.5K+</p>
                             <p className="text-gray-300 text-sm">Channels Optimized</p>
                         </motion.div>
-                        <motion.div className="text-center pl-8 transform hover:scale-105 transition-transform duration-300" whileHover={{ scale: 1.08 }}>
+
+                        <motion.div className="text-center pl-8">
                             <p className="text-4xl font-bold text-gradient-gold mb-2">95%</p>
                             <p className="text-gray-300 text-sm">Ranking Success</p>
                         </motion.div>
+
                     </div>
                 </div>
             </div>

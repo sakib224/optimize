@@ -4,16 +4,17 @@ import GrowthPlan from "@/components/home/GrowthPlan";
 import { HeroSection } from "@/components/home/hero-section";
 import TestimonialPage from "@/components/home/TestimonialPage";
 import WhatsIncluded from "@/components/home/WhatsIncluded";
+import { Header } from "@/components/Plans/Header";
 
 export default function PlansPage() {
   return (
     <div >
-      <HeroSection />
-            <FeaturesSection  />
-            <CreatorsLover />
-            <GrowthPlan />
-            <TestimonialPage />
-            <WhatsIncluded />
+      <Header />
+      <FeaturesSection />
+      <CreatorsLover />
+      <GrowthPlan />
+      <TestimonialPage />
+      <WhatsIncluded />
     </div>
   );
 }

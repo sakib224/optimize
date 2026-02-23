@@ -1,7 +1,13 @@
+import CompanyBranding from "@/components/BrandAnalysis/CompanyBranding";
+import InDepthBrand from "@/components/BrandAnalysis/InDepthBrand";
+import OptimizifyBrand from "@/components/BrandAnalysis/OptimizifyBrand";
+
 export default function BrandAnalysisPage() {
   return (
-    <div className="flex items-center justify-center min-h-[50vh]">
-      <h1 className="text-2xl">Hello world</h1>
+    <div>
+      <CompanyBranding />
+      <InDepthBrand />
+      <OptimizifyBrand />
     </div>
   );
 }

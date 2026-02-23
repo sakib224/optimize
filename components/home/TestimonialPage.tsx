@@ -1,8 +1,6 @@
 'use client';
-
 import { useState } from 'react';
 import { Star } from 'lucide-react';
-import Image from 'next/image';
 import { motion, AnimatePresence } from 'framer-motion';
 
 export default function TestimonialPage() {
@@ -15,7 +13,20 @@ export default function TestimonialPage() {
             name: 'Bob Gatty',
             role: 'Podcaster & Commentator',
             achievement: '+187% YouTube Search Views',
-            image: 'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-0lvKBV92zXeyGXJDByYhuwqxfGp8WK.png',
+        },
+        {
+            quote:
+                "I've Been Incredibly Impressed. The Increase In Views For My Podcast Since Optimizify Got Involved Has Been Remarkable. Thousands Of Views, Far Beyond What It Used To Receive. Equally Important, There's Been A Consistent Rise In Subscribers. Every Day, I See New Subscribers Joining. Which Matters Even More Than The View Count. I'm Extremely Grateful And Truly Appreciate Optimizify For Their Impact.",
+            name: 'Bob Gatty',
+            role: 'Podcaster & Commentator',
+            achievement: '+187% YouTube Search Views',
+        },
+        {
+            quote:
+                "I've Been Incredibly Impressed. The Increase In Views For My Podcast Since Optimizify Got Involved Has Been Remarkable. Thousands Of Views, Far Beyond What It Used To Receive. Equally Important, There's Been A Consistent Rise In Subscribers. Every Day, I See New Subscribers Joining. Which Matters Even More Than The View Count. I'm Extremely Grateful And Truly Appreciate Optimizify For Their Impact.",
+            name: 'Bob Gatty',
+            role: 'Podcaster & Commentator',
+            achievement: '+187% YouTube Search Views',
         },
     ];
 
@@ -33,9 +44,8 @@ export default function TestimonialPage() {
     };
 
     return (
-        <div className="min-h-screen bg-black text-white flex flex-col items-center justify-center px-4 py-20">
-            <div className="w-full max-w-6xl">
-                
+        <div className="relative min-h-screen bg-[#181818] text-white flex flex-col items-center justify-center px-4 py-20 overflow-hidden">
+            <div className="w-full max-w-6xl z-10">
                 {/* Heading */}
                 <motion.h1
                     variants={fadeUp}
@@ -64,8 +74,22 @@ export default function TestimonialPage() {
                     animate="show"
                     transition={{ delay: 0.25 }}
                     whileHover={{ scale: 1.02 }}
-                    className="border border-gray-600 rounded-3xl p-7 mb-12 bg-[#2E2E2E] backdrop-blur"
+                    className="relative border border-gray-600 rounded-3xl p-7 mb-12 bg-[#2E2E2E] backdrop-blur overflow-hidden"
                 >
+                    {/* Floating Circles INSIDE the card */}
+                    <motion.div
+                        className="absolute left-5 bottom-5 w-20 h-20 rounded-full blur-5xl pointer-events-none z-0"
+                        style={{ backgroundColor: '#FFD166', opacity: 0.35 }}
+                        animate={{ y: [0, -20, 0], scale: [1, 1.2, 1] }}
+                        transition={{ duration: 8, repeat: Infinity, repeatType: 'loop', ease: 'easeInOut' }}
+                    />
+                    <motion.div
+                        className="absolute right-10 top-10 w-28 h-28 rounded-full blur-4xl pointer-events-none z-0"
+                        style={{ backgroundColor: '#06D6A0', opacity: 0.35 }}
+                        animate={{ y: [0, 20, 0], scale: [1, 1.15, 1] }}
+                        transition={{ duration: 6, repeat: Infinity, repeatType: 'loop', ease: 'easeInOut' }}
+                    />
+
                     <AnimatePresence mode="wait">
                         <motion.div
                             key={currentSlide}
@@ -75,7 +99,7 @@ export default function TestimonialPage() {
                             exit="exit"
                         >
                             {/* Stars */}
-                            <div className="flex justify-center gap-2 mb-8">
+                            <div className="flex justify-center gap-2 mb-8 relative z-10">
                                 {[...Array(5)].map((_, i) => (
                                     <motion.div
                                         key={i}
@@ -96,7 +120,7 @@ export default function TestimonialPage() {
                                 initial={{ opacity: 0 }}
                                 animate={{ opacity: 1 }}
                                 transition={{ delay: 0.2 }}
-                                className="text-center text-gray-200 italic text-lg leading-relaxed mb-10"
+                                className="text-center text-gray-200 italic text-lg leading-relaxed mb-10 relative z-10"
                             >
                                 "{testimonial.quote}"
                             </motion.p>
@@ -106,7 +130,7 @@ export default function TestimonialPage() {
                                 initial={{ opacity: 0, y: 20 }}
                                 animate={{ opacity: 1, y: 0 }}
                                 transition={{ delay: 0.3 }}
-                                className="flex justify-center items-center space-x-6"
+                                className="flex justify-center items-center space-x-6 relative z-10"
                             >
                                 <div className="w-16 h-16 rounded-full bg-gray-700 flex items-center justify-center">
                                     <div className="w-14 h-14 rounded-full bg-blue-500 flex items-center justify-center text-white font-bold text-sm">
@@ -127,7 +151,7 @@ export default function TestimonialPage() {
                     </AnimatePresence>
 
                     {/* Navigation Dots */}
-                    <div className="flex justify-center gap-2 mt-8">
+                    <div className="flex justify-center gap-2 mt-8 relative z-10">
                         {[0, 1, 2].map((index) => (
                             <motion.button
                                 key={index}
@@ -151,7 +175,7 @@ export default function TestimonialPage() {
                     initial="hidden"
                     animate="show"
                     transition={{ delay: 0.5 }}
-                    className="border border-gray-600 rounded-2xl p-10 bg-gray-900/50 backdrop-blur text-center max-w-[600px] mx-auto"
+                    className="border border-gray-600 rounded-2xl p-10 bg-[#191919] backdrop-blur text-center max-w-[600px] mx-auto"
                 >
                     <h2 className="text-3xl font-bold text-white mb-3">
                         Need A Custom Solution?
@@ -170,7 +194,6 @@ export default function TestimonialPage() {
                         Contact Sales
                     </motion.button>
                 </motion.div>
-
             </div>
         </div>
     );

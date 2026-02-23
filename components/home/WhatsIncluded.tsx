@@ -34,6 +34,22 @@ export default function WhatsIncluded() {
     show: { opacity: 1, y: 0, transition: { duration: 0.6 } },
   };
 
+  // Sample tick/cross status for features and growth tools
+  const featureStatus = [
+    [true, false, true, true],
+    [true, true, false, true],
+    [false, true, true, true],
+    [true, true, true, false],
+    [true, true, true, true],
+  ];
+
+  const growthStatus = [
+    [true, true, false, true],
+    [true, false, true, true],
+    [true, true, true, false],
+    [true, true, true, true],
+  ];
+
   return (
     <div className="min-h-screen bg-[#0F0F0F] pt-20 px-6 text-white">
 
@@ -42,9 +58,9 @@ export default function WhatsIncluded() {
         variants={fadeUp}
         initial="hidden"
         animate="show"
-        className="max-w-4xl mx-auto mb-16"
+        className="max-w-xl mx-auto mb-16"
       >
-        <div className="border border-gray-700 rounded-2xl p-10 bg-zinc-950 backdrop-blur">
+        <div className="border border-gray-700 rounded-2xl p-10 bg-[#191919] backdrop-blur">
           <h1 className="text-5xl font-bold text-center">
             <span className="text-white">What's </span>
             <span className="text-yellow-400">Included</span>
@@ -56,34 +72,23 @@ export default function WhatsIncluded() {
       </motion.div>
 
       {/* Tabs */}
-      <motion.div
-        variants={fadeUp}
-        initial="hidden"
-        animate="show"
-        transition={{ delay: 0.2 }}
-        className="w-full max-w-[1400px] mx-auto mb-16"
-      >
-        <div className="flex flex-wrap gap-5 justify-center">
+      <div className="w-full mb-16">
+        <div className="flex flex-wrap px-5 gap-5 justify-center">
           {tabs.map((tab) => (
-            <motion.button
+            <button
               key={tab.id}
-              whileHover={{ scale: 1.08 }}
-              whileTap={{ scale: 0.95 }}
               onClick={() => setActiveTab(tab.id)}
-              className={`px-12 py-5 rounded-full border transition-all duration-300 font-bold text-2xl
-                ${
-                  activeTab === tab.id
-                    ? 'border-gray-400 bg-gray-900'
-                    : 'border-gray-700 hover:bg-gray-900/50'
-                }
+              className={`px-16 py-6 rounded-xl border font-bold text-3xl 
+                ${activeTab === tab.id ? 'border-gray-400 bg-gray-900' : 'border-gray-700'}
               `}
             >
               <span className={tab.color}>{tab.label}</span>
-            </motion.button>
+            </button>
           ))}
         </div>
-      </motion.div>
+      </div>
 
+      {/* Content */}
       <div className="max-w-7xl mx-auto flex flex-col gap-6">
 
         {/* Optimization Features Header */}
@@ -105,8 +110,7 @@ export default function WhatsIncluded() {
             initial="hidden"
             animate="show"
             transition={{ delay: 0.4 + idx * 0.1 }}
-            whileHover={{ scale: 1.02 }}
-            className="border border-gray-700 rounded-2xl p-10 bg-[#111111]"
+            className="border border-gray-700 rounded-2xl p-10 bg-[#111111] hover:border-yellow-500 transition-colors duration-300"
           >
             <div className="flex flex-col md:flex-row gap-10">
 
@@ -118,16 +122,35 @@ export default function WhatsIncluded() {
                 </p>
               </div>
 
-              {[1, 2, 3, 4].map((i) => (
-                <motion.div
-                  key={i}
-                  className="flex-1 flex items-center justify-center"
-                  whileHover={{ scale: 1.15 }}
-                >
-                  <div className="w-16 h-16 border-4 border-yellow-500 rounded-full flex items-center justify-center">
-                    <div className="w-8 h-8 bg-yellow-500 rounded-full"></div>
-                  </div>
-                </motion.div>
+              {/* ✅ / ❌ SVG Icons */}
+              {featureStatus[idx].map((status, i) => (
+                <div key={i} className="flex-1 flex items-center justify-center">
+                  {status ? (
+                    // ✅ Tick inside black circle with golden tick
+                    <div className="w-14 h-14 rounded-full bg-[#FFD700] flex items-center justify-center">
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        className="w-7 h-7"
+                        fill="#000000" // black tick
+                        viewBox="0 0 512 512"
+                      >
+                        <path d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM369 209L241 337c-9.4 9.4-24.6 9.4-33.9 0l-64-64c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.4 33.9 0l47 47L335 175c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9z" />
+                      </svg>
+                    </div>
+                  ) : (
+                    // ❌ Cross inside black circle with red cross
+                    <div className="w-14 h-14 rounded-full bg-black flex items-center justify-center">
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        className="w-7 h-7"
+                        fill="red"
+                        viewBox="0 0 24 24"
+                      >
+                        <path d="M18.364 5.636a1 1 0 0 0-1.414 0L12 10.586 7.05 5.636a1 1 0 1 0-1.414 1.414L10.586 12l-4.95 4.95a1 1 0 0 0 1.414 1.414L12 13.414l4.95 4.95a1 1 0 0 0 1.414-1.414L13.414 12l4.95-4.95a1 1 0 0 0 0-1.414z" />
+                      </svg>
+                    </div>
+                  )}
+                </div>
               ))}
 
             </div>
@@ -153,8 +176,7 @@ export default function WhatsIncluded() {
             initial="hidden"
             animate="show"
             transition={{ delay: 0.9 + idx * 0.1 }}
-            whileHover={{ scale: 1.02 }}
-            className="border border-gray-700 rounded-2xl p-10 bg-zinc-950"
+            className="border border-gray-700 rounded-2xl p-10 bg-zinc-950 hover:border-cyan-500 transition-colors duration-300"
           >
             <div className="flex flex-col md:flex-row gap-10">
 
@@ -166,16 +188,35 @@ export default function WhatsIncluded() {
                 </p>
               </div>
 
-              {[1, 2, 3, 4].map((i) => (
-                <motion.div
-                  key={i}
-                  className="flex-1 flex items-center justify-center"
-                  whileHover={{ scale: 1.15 }}
-                >
-                  <div className="w-16 h-16 border-4 border-cyan-500 rounded-full flex items-center justify-center">
-                    <div className="w-8 h-8 bg-cyan-500 rounded-full"></div>
-                  </div>
-                </motion.div>
+              {/* ✅ / ❌ SVG Icons */}
+              {growthStatus[idx].map((status, i) => (
+                <div key={i} className="flex-1 flex items-center justify-center">
+                  {status ? (
+                    // ✅ Tick inside black circle with golden tick
+                    <div className="w-14 h-14 rounded-full bg-[#FFD700] flex items-center justify-center">
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        className="w-7 h-7"
+                        fill="#000000" // black tick
+                        viewBox="0 0 512 512"
+                      >
+                        <path d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM369 209L241 337c-9.4 9.4-24.6 9.4-33.9 0l-64-64c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.4 33.9 0l47 47L335 175c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9z" />
+                      </svg>
+                    </div>
+                  ) : (
+                    // ❌ Cross inside black circle with red cross
+                    <div className="w-14 h-14 rounded-full bg-black flex items-center justify-center">
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        className="w-7 h-7"
+                        fill="red"
+                        viewBox="0 0 24 24"
+                      >
+                        <path d="M18.364 5.636a1 1 0 0 0-1.414 0L12 10.586 7.05 5.636a1 1 0 1 0-1.414 1.414L10.586 12l-4.95 4.95a1 1 0 0 0 1.414 1.414L12 13.414l4.95 4.95a1 1 0 0 0 1.414-1.414L13.414 12l4.95-4.95a1 1 0 0 0 0-1.414z" />
+                      </svg>
+                    </div>
+                  )}
+                </div>
               ))}
 
             </div>

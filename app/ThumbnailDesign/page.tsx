@@ -1,7 +1,13 @@
+import DesignPrinciples from "@/components/ThumbnailDesign/DesignPrinciples";
+import PremiumConsulting from "@/components/ThumbnailDesign/PremiumConsulting";
+import VisualDesign from "@/components/ThumbnailDesign/VisualDesign";
+
 export default function ThumbnailDesignPage() {
   return (
-    <div className="flex items-center justify-center min-h-[50vh]">
-      <h1 className="text-2xl">Hello world</h1>
+    <div>
+      <VisualDesign />
+      <DesignPrinciples />
+      <PremiumConsulting />
     </div>
   );
 }
