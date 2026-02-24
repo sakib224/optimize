@@ -10,8 +10,6 @@ export default function PlansPage() {
   return (
     <div >
       <Header />
-      <FeaturesSection />
-      <CreatorsLover />
       <GrowthPlan />
       <TestimonialPage />
       <WhatsIncluded />

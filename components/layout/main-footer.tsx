@@ -8,34 +8,34 @@ export function MainFooter() {
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 sm:gap-12 max-w-7xl mx-auto">
           {/* Brand Section */}
           <div className="flex flex-col">
-            <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold text-yellow-400 mb-4 sm:mb-6">
+            <h1 className="text-4xl sm:text-5xl ml-8 md:text-4xl font-bold text-yellow-400 mb-4 sm:mb-6">
               OPTIMIZIFY
             </h1>
             <p className="text-gray-400 text-sm sm:text-base md:text-lg leading-relaxed mb-6 sm:mb-8">
               Empowering YouTube Creators To Reach Their Full Potential With AI-Driven Optimization Tools.
             </p>
             {/* Social Icons */}
-            <div className="flex gap-4">
+            <div className="flex gap-4 ]">
               <a
                 href="#"
                 className="text-white hover:text-yellow-400 transition-colors"
                 aria-label="Facebook"
               >
-                <Facebook size={22} className="sm:w-6 sm:h-6" />
+                <Facebook size={22} className="sm:w-3 sm:h-3" />
               </a>
               <a
                 href="#"
                 className="text-white hover:text-yellow-400 transition-colors"
                 aria-label="Instagram"
               >
-                <Instagram size={22} className="sm:w-6 sm:h-6" />
+                <Instagram size={22} className="sm:w-3 sm:h-3" />
               </a>
               <a
                 href="#"
                 className="text-white hover:text-yellow-400 transition-colors"
                 aria-label="LinkedIn"
               >
-                <Linkedin size={22} className="sm:w-6 sm:h-6" />
+                <Linkedin size={22} className="sm:w-3 sm:h-3" />
               </a>
             </div>
           </div>

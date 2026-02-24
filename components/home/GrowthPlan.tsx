@@ -157,7 +157,7 @@ export default function GrowthPlan() {
         </p>
 
         {/* Toggle */}
-        <div className="inline-flex gap-3 border-2 border-[#2F3849] rounded-2xl p-2 mb-16 max-w-lg w-full relative overflow-hidden">
+        <div className="inline-flex gap-2 border-2 border-[#2F3849] rounded-2xl p-1 mb-16 max-w-[500px] w-full relative overflow-hidden">
           {/* Sliding Background */}
           <motion.div
             className="absolute bg-gradient-to-r from-[#2F3849] to-[#2F3849] rounded-xl shadow-lg"
@@ -170,11 +170,10 @@ export default function GrowthPlan() {
               duration: 0.4,
             }}
             style={{
-              width: "calc(50% - 8px)",
-              height: "calc(100% - 16px)",
-              top: "8px",
-              left:
-                billingType === "monthly" ? "8px" : "calc(50% + 4px)",
+              width: "calc(50% - 4px)",
+              height: "calc(100% - 2px)",
+              top: "1px",
+              left: billingType === "monthly" ? "1px" : "calc(50% + 1px)",
             }}
           />
 
@@ -186,32 +185,29 @@ export default function GrowthPlan() {
               animate={
                 billingType === type
                   ? {
-                    scale: [1, 1.12, 1.1, 1.08, 1.06, 1.04, 1.02, 1],
+                    scale: [1, 1.08, 1.06, 1.04, 1.02, 1],
                     transition: {
-                      duration: 2,
-                      times: [0, 0.05, 0.15, 0.3, 0.5, 0.7, 0.85, 1],
+                      duration: 1.5,
+                      times: [0, 0.2, 0.4, 0.6, 0.8, 1],
                       ease: "easeOut",
                     },
                   }
                   : {}
               }
               onClick={() => setBillingType(type as "monthly" | "annual")}
-              className={`flex-1 px-8 py-4 rounded-xl font-bold transition-all duration-700 z-10 ${billingType === type
-                ? "text-white"
-                : "text-gray-400 hover:text-white"
+              className={`flex-1 px-4 py-4 rounded-xl font-bold text-sm transition-all duration-500 z-10 ${billingType === type ? "text-white" : "text-gray-400 hover:text-white"
                 }`}
               style={{
                 background: billingType === type ? "#2F3849" : "transparent",
               }}
             >
               <motion.span
+                className="inline-flex items-center gap-1 whitespace-nowrap"
                 animate={
                   billingType === type
                     ? {
                       textShadow: [
                         "0 0 0px #2F3849",
-                        "0 0 30px #2F3849",
-                        "0 0 25px #2F3849",
                         "0 0 20px #2F3849",
                         "0 0 15px #2F3849",
                         "0 0 10px #2F3849",
@@ -227,7 +223,16 @@ export default function GrowthPlan() {
                   ease: "easeInOut",
                 }}
               >
-                {type === "annual" ? "Annual Save Up to 24%" : "Monthly"}
+                {type === "annual" ? (
+                  <>
+                    <span>Annual</span>
+                    <span className="bg-[#10B981] text-white px-2 py-0.5 rounded-full text-xs font-semibold">
+                      Save Up to 24%
+                    </span>
+                  </>
+                ) : (
+                  "Monthly"
+                )}
               </motion.span>
             </motion.button>
           ))}
@@ -291,6 +296,17 @@ export default function GrowthPlan() {
                     </span>
                   </div>
 
+                  <div className="w-72 h-24 bg-[#1e1b10] rounded-xl shadow-lg p-4 flex flex-col justify-between text-white">
+  <div className="flex items-center justify-between text-sm font-medium">
+    <span>Annual plan:</span>
+    <span className="text-yellow-400 font-semibold">💰 Save $469/year</span>
+  </div>
+  <div className="flex items-center justify-between text-lg font-bold mt-1">
+    <span className="line-through text-gray-400">$2376</span>
+    <span>$1907/year</span>
+    <span className="text-red-500 font-semibold">-20%</span>
+  </div>
+</div>
                   {billingType === "annual" && (
                     <p className="text-gray-500 text-base">
                       ${plan.monthlyPrice}/month billed annually
