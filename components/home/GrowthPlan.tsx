@@ -296,12 +296,12 @@ export default function GrowthPlan() {
                     </span>
                   </div>
 
-                  <div className="w-72 h-24 bg-[#1e1b10] rounded-xl shadow-lg p-4 flex flex-col justify-between text-white">
-  <div className="flex items-center justify-between text-sm font-medium">
+                  <div className="w-72 h-16 bg-[#1A2820] rounded-xl shadow-lg p-4 flex flex-col justify-between text-white">
+  <div className="flex items-center justify-between text-xs font-medium">
     <span>Annual plan:</span>
     <span className="text-yellow-400 font-semibold">💰 Save $469/year</span>
   </div>
-  <div className="flex items-center justify-between text-lg font-bold mt-1">
+  <div className="flex items-center justify-between text-sm font-bold mt-1">
     <span className="line-through text-gray-400">$2376</span>
     <span>$1907/year</span>
     <span className="text-red-500 font-semibold">-20%</span>
